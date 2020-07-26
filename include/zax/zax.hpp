@@ -8,6 +8,7 @@ namespace zax {
 // final_act
 // https://github.com/microsoft/gsl/blob/ebe7ebfd855a95eb93783164ffb342dbd85cbc27\
 // /include/gsl/gsl_util#L85-L89
+using ssize_t = std::ptrdiff_t;
 
 template <class F> class final_act {
 public:
