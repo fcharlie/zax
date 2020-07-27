@@ -12,7 +12,7 @@ inline bool ZaxNarrowArgv(int argc, wchar_t **argv,
                           std::vector<char *> &narrowargv) {
   narrowargv.reserve(argc);
   for (auto i = 0; i < argc; i++) {
-    auto p = zax::text::u16tou8(argv[i]);
+    auto p = zax::text::ToNarrow(argv[i]);
     if (p == nullptr) {
       return false;
     }

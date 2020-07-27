@@ -77,7 +77,7 @@ size_t char32tochar16(char32_t rune, char16_t *dest, size_t dlen) {
   return 2;
 }
 
-static inline size_t char32tochar8_internal(char32_t rune, char *dest) {
+static inline size_t RuneEncodeInternal(char32_t rune, char *dest) {
   if (rune <= 0x7F) {
     dest[0] = static_cast<char>(rune);
     return 1;
@@ -103,15 +103,15 @@ static inline size_t char32tochar8_internal(char32_t rune, char *dest) {
   return 0;
 }
 
-size_t char32tochar8(char32_t rune, char *dest, size_t dlen) {
+size_t RuneEncode(char32_t rune, char *dest, size_t dlen) {
   constexpr const size_t kMaxEncodedUTF8Size = 4;
   if (dlen < kMaxEncodedUTF8Size) {
     return 0;
   }
-  return char32tochar8_internal(rune, dest);
+  return RuneEncodeInternal(rune, dest);
 }
 
-std::string u16tou8(const char16_t *u16, size_t len) {
+std::string ToNarrow(const char16_t *u16, size_t len) {
   std::string s;
   s.reserve(len);
   auto it = u16;
@@ -130,7 +130,7 @@ std::string u16tou8(const char16_t *u16, size_t len) {
       ch = ((ch - 0xD800) << 10) + (ch2 - 0xDC00) + 0x10000U;
       ++it;
     }
-    auto bw = char32tochar8_internal(ch, buffer);
+    auto bw = RuneEncodeInternal(ch, buffer);
     s.append(reinterpret_cast<const char *>(buffer), bw);
   }
   return s;
@@ -167,7 +167,7 @@ inline char32_t annex_u8(const uint8_t *it, int nb) {
 }
 
 template <typename T, typename Allocator>
-bool u8tou16_internal(const uint8_t *s, size_t len,
+bool ToWide_internal(const uint8_t *s, size_t len,
                       std::basic_string<T, std::char_traits<T>, Allocator> &u16) {
   if (s == nullptr || len == 0) {
     return false;
@@ -203,9 +203,9 @@ bool u8tou16_internal(const uint8_t *s, size_t len,
   return true;
 }
 
-std::u16string u8tou16(const char *u8, size_t len) {
+std::u16string ToWide(const char *u8, size_t len) {
   std::u16string s;
-  if (!u8tou16_internal(reinterpret_cast<const uint8_t *>(u8), len, s)) {
+  if (!ToWide_internal(reinterpret_cast<const uint8_t *>(u8), len, s)) {
     s.clear();
   }
   return s;
@@ -266,7 +266,7 @@ private:
   size_t len_{0};
 };
 
-char *u16tou8(const wchar_t *wstr) {
+char *ToNarrow(const wchar_t *wstr) {
   auto len = wcslen(wstr);
   CharBuffer cb(len / 2 * 3);
   auto it = wstr;
@@ -285,15 +285,15 @@ char *u16tou8(const wchar_t *wstr) {
       ch = ((ch - 0xD800) << 10) + (ch2 - 0xDC00) + 0x10000U;
       ++it;
     }
-    auto bw = char32tochar8_internal(ch, buffer);
+    auto bw = RuneEncodeInternal(ch, buffer);
     cb.append(reinterpret_cast<const char *>(buffer), bw);
   }
   return cb.detach();
 }
 
-std::wstring u8towc(const char *u8, size_t len) {
+std::wstring Narrow2Wide(const char *u8, size_t len) {
   std::wstring s;
-  if (!u8tou16_internal(reinterpret_cast<const uint8_t *>(u8), len, s)) {
+  if (!ToWide_internal(reinterpret_cast<const uint8_t *>(u8), len, s)) {
     s.clear();
   }
   return s;

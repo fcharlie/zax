@@ -29,6 +29,7 @@
         "memory": "cpp",
         "typeinfo": "cpp",
         "unordered_map": "cpp",
-        "xhash": "cpp"
+        "xhash": "cpp",
+        "charconv": "cpp"
     }
 }
