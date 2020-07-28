@@ -11,6 +11,9 @@ class AlphaNum {
   static constexpr const int suggest_size = 32;
 
 public:
+  AlphaNum(bool x) {
+    piece_ = x ? "true" : "false"; // true or false
+  }
   AlphaNum(int x) {
     auto ret = std::to_chars(digits_, digits_ + suggest_size, x);
     piece_ = std::string_view{digits_, ret.ptr - digits_};
@@ -40,7 +43,7 @@ public:
     auto n = zax::text::RuneEncode(rune, digits_, suggest_size);
     piece_ = std::string_view{digits_, n};
   }
-  AlphaNum(const char *c_str) : piece_(c_str) {}
+  AlphaNum(const char *c_str) : piece_(c_str == nullptr ? "(nullptr)" : c_str) {}
   AlphaNum(std::string_view pc) : piece_(pc) {}
 
   AlphaNum(char c) = delete;

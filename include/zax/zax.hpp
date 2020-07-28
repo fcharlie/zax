@@ -38,17 +38,14 @@ template <class F> inline final_act<F> finally(F &&f) noexcept {
 }
 
 enum zax_extend_error_category : long {
-  None = 0, // None error
-  SkipParse = 0x4001,
-  ParseBroken = 0x4002,
-  FileSizeTooSmall = 0x4003,
+  ERRORZERO = 0, // zero not error
 };
 
 struct error_code {
   std::string message;
-  long code{None};
+  long code{ERRORZERO};
   const char *data() const { return message.data(); }
-  explicit operator bool() const noexcept { return code != None; }
+  explicit operator bool() const noexcept { return code != ERRORZERO; }
 };
 
 } // namespace zax

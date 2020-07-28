@@ -30,6 +30,7 @@
         "typeinfo": "cpp",
         "unordered_map": "cpp",
         "xhash": "cpp",
-        "charconv": "cpp"
+        "charconv": "cpp",
+        "stdexcept": "cpp"
     }
 }
