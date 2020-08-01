@@ -33,6 +33,7 @@
         "charconv": "cpp",
         "stdexcept": "cpp",
         "string": "cpp",
-        "version": "cpp"
+        "version": "cpp",
+        "fstream": "cpp"
     }
 }
