@@ -31,6 +31,8 @@
         "unordered_map": "cpp",
         "xhash": "cpp",
         "charconv": "cpp",
-        "stdexcept": "cpp"
+        "stdexcept": "cpp",
+        "string": "cpp",
+        "version": "cpp"
     }
 }
