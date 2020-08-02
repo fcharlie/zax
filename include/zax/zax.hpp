@@ -48,6 +48,23 @@ struct error_code {
   explicit operator bool() const noexcept { return code != ERRORZERO; }
 };
 
+// Null Terminated String
+class StringTransitive {
+public:
+  StringTransitive(const char *cstr) : sv(cstr) {}
+  StringTransitive(const std::string &str) : sv(str) {}
+  StringTransitive(const StringTransitive &other) : sv(other.sv) {}
+  StringTransitive &operator=(const StringTransitive &other) {
+    sv = other.sv;
+    return *this;
+  }
+  const char *data() const { return sv.empty() ? nullptr : sv.data(); }
+  size_t size() const { return sv.size(); }
+
+private:
+  std::string_view sv;
+};
+
 } // namespace zax
 
 #endif
