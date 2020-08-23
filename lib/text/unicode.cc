@@ -161,8 +161,7 @@ inline char32_t annex_u8(const uint8_t *it, int nb) {
 }
 
 template <typename T, typename Allocator>
-bool ToWide_internal(const uint8_t *s, size_t len,
-                     std::basic_string<T, std::char_traits<T>, Allocator> &u16) {
+bool ToWide_internal(const uint8_t *s, size_t len, std::basic_string<T, std::char_traits<T>, Allocator> &u16) {
   if (s == nullptr || len == 0) {
     return false;
   }

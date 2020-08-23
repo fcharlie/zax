@@ -25,9 +25,7 @@ inline std::string ToNarrow(std::wstring_view u16) {
   return ToNarrow(reinterpret_cast<const char16_t *>(u16.data()), u16.size());
 }
 std::wstring Narrow2Wide(const char *u8, size_t len);
-inline std::wstring Narrow2Wide(std::string_view str) {
-  return Narrow2Wide(str.data(), str.size());
-}
+inline std::wstring Narrow2Wide(std::string_view str) { return Narrow2Wide(str.data(), str.size()); }
 
 #endif
 

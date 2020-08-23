@@ -16,8 +16,7 @@ enum HasArgs {
 };
 struct option {
   option() = default;
-  option(std::string_view n, HasArgs ha, int va)
-      : name(n), has_args(ha), val(va) {} /// emplace_back
+  option(std::string_view n, HasArgs ha, int va) : name(n), has_args(ha), val(va) {} /// emplace_back
   std::string_view name;
   HasArgs has_args;
   int val;
@@ -25,8 +24,7 @@ struct option {
 using invoke_t = std::function<bool(int, const char *, const char *)>;
 class ParseArgs {
 public:
-  ParseArgs(int argc, char *const *argv, bool subcmd = true)
-      : argv_(argv), argc_(argc), subcmd_(subcmd) {}
+  ParseArgs(int argc, char *const *argv, bool subcmd = true) : argv_(argv), argc_(argc), subcmd_(subcmd) {}
   ParseArgs(const ParseArgs &) = delete;
   ParseArgs &operator=(const ParseArgs &) = delete;
   ParseArgs &Add(std::string_view name, HasArgs a, int val) {
