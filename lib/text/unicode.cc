@@ -51,12 +51,6 @@ static const char trailingbytesu8[256] = {
 constexpr const char32_t offsetfromu8[6] = {0x00000000UL, 0x00003080UL, 0x000E2080UL,
                                             0x03C82080UL, 0xFA082080UL, 0x82082080UL};
 
-// char32_t - type for UTF-32 character representation, required to be large
-// enough to represent any UTF-32 code unit (32 bits). It has the same size,
-// signedness, and alignment as std::uint_least32_t, but is a distinct type.
-
-inline constexpr bool IsSurrogate(char32_t rune) { return (rune >= 0xD800 && rune <= 0xDFFF); }
-
 size_t char32tochar16(char32_t rune, char16_t *dest, size_t dlen) {
   if (dlen == 0 || dest == nullptr) {
     return 0;
@@ -168,7 +162,7 @@ inline char32_t annex_u8(const uint8_t *it, int nb) {
 
 template <typename T, typename Allocator>
 bool ToWide_internal(const uint8_t *s, size_t len,
-                      std::basic_string<T, std::char_traits<T>, Allocator> &u16) {
+                     std::basic_string<T, std::char_traits<T>, Allocator> &u16) {
   if (s == nullptr || len == 0) {
     return false;
   }

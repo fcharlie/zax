@@ -24,6 +24,7 @@ public:
   ssize_t Write(const uint8_t *data, size_t len);
   ssize_t Read(uint8_t *buffer, size_t bufsz);
   int Close();
+  native_handle FD() const { return fd; }
 
 private:
   native_handle fd{closedfd};
